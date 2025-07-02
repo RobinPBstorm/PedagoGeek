@@ -29,6 +29,11 @@ jobs:
       - name: Run tests
         run: npm run ng -- test --no-watch --no-progress --browsers=ChromeHeadless
 
+      - name: Set Git Identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Prepare and deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
