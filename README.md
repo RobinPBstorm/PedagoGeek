@@ -1,5 +1,28 @@
 # PedagoGeek
 
+Accessible sur la page github: https://robinpbstorm.github.io/PedagoGeek/
+
+
+## Deployement automatique
+
+Le contenu de la page github correspond aux déploiement du dernier commit sur la branche "main".
+
+Vous pouvez avoir les première étapes ici: https://angular.dev/tools/cli/deployment
+
+    - ng add angular-cli-ghpages
+    - ajouter cette option dans angular.json:
+
+        ```
+        "outputPath": "dist/nom-du-projet",
+        ```
+
+Préparer ensuite un pipeline github pour déployer sur un push sur la branche "main"
+
+    - Créer un dossier /.github/workflows/
+    - Ajouter un fichier .yml qui contiendra le pipeline
+
+## Angular
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
 
 ## Development server
