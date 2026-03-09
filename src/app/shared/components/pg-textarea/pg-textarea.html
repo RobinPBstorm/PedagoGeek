@@ -1,0 +1,9 @@
+<div class="resizable-textarea" #container>
+  <textarea (keydown.tab)="onTab($event)"
+      [ngClass]="handlePosition === 'left'? 'resizable-textarea-right' : ''"
+      #textarea>{{content}}</textarea>
+  <div class="handle"
+       [ngClass]="{'handle-left': handlePosition === 'left', 'handle-right': handlePosition === 'right'}"
+      #handle>
+  </div>
+</div>

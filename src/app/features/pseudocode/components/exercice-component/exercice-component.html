@@ -1,0 +1,17 @@
+<article>
+  <div class="command">
+    <button (click)="run()">Play</button>
+  </div>
+  <div class="main">
+    <pg-textarea class="main__text_area main__text_area-use_code"
+                 [content]="userCode"
+                 [width]="70">
+    </pg-textarea>
+
+    <pg-textarea class="main__text_area main__text_area-variable_output"
+                 [content]="variableOutput"
+                 [handlePosition]="'left'"
+                 [width]="20">
+    </pg-textarea>
+  </div>
+</article>
