@@ -1,0 +1,17 @@
+{  
+    "title": "My feature Options Schema",
+    "type": "object",
+    "description": "Use this schematic to generate a new custom component in your project.",
+    "additionalProperties": false,
+    "properties": {
+    "name": {
+        "type": "string",
+        "description": "Nom du composant",
+        "$default": {
+        "$source": "argv",
+        "index": 0
+        }
+    }
+    }
+
+}

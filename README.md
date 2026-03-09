@@ -21,6 +21,84 @@ Préparer ensuite un pipeline github pour déployer sur un push sur la branche "
     - Créer un dossier /.github/workflows/
     - Ajouter un fichier .yml qui contiendra le pipeline
 
+## Ajout d'un schematics personnalisé
+
+ 1. installer @angular-devkit/schematics-cli
+
+```bash
+npm install --save-dev @angular-devkit/schematics-cli
+```
+
+ 2. préparer un dossier pour votre schématics `tools/schematics`
+
+ 3. Générer un squelette de schematics
+
+ ``` bash
+ npx schematics blank my-feature --name-only
+ ```
+
+ 4. Remplir les templates
+
+ créer un dossier `/files` dans `tools/schematics/src/my-feature/`
+
+ Dans ce dossier, on placera les fichiers à générer.
+
+ On pourra disposer des "balises" pour passage de paramètre.
+
+ ```ts
+// Exemple lié à un nom donné pendant la commande comme étant le paramètre `name`:
+<%= classify(name) %> // le nom en lowerCamelCase pour les classes par exemple
+<%= dasherize(name) %> // le nom en dash-case (aussi appelé kebab-case) pour les noms de fichiers
+ ```
+
+ Et avec un fichiers `schema.json` dans `tools/schematics/src/my-feature/`, on va pouvoir définir les variables.
+
+ 5. Remplir collection.json 
+
+ 6. Adapter index.ts de notre schematics:
+
+ ```ts
+ export function myFeature(_options: any): Rule { // au moins une régle dois être défini
+    return chain([
+    () => {
+      const sourceTemplates = url('./files'); // va recherché les fichiers de template
+      const sourceParameterizedTemplates = apply(sourceTemplates, [ // applique les paramètres
+        template({
+          ..._options,
+          ...strings
+        }),
+        // à modifer pour la création de dossier depuis des paramètres
+        move('src/app') // place les nouveaux fichiers créés ici
+      ]);
+      return mergeWith(sourceParameterizedTemplates);
+    }
+  ]);
+}
+ ```
+
+ 7. Compiler
+
+```bash
+ npx tsc -p tsconfig.json
+ ```
+
+ 8. générer notre schematics:
+
+ ```bash
+    ng generate ./tools/schematics:my-feature test
+ ```
+
+ Pour ne pas être obliger d'indiquer le chemin de la collection.json de nos schematics personnalisés, nous allons devoir modifier notre angular.json:
+
+ ```json
+   "cli": {
+    "schematicCollections": [ // définit les collection.json des schematiques de notre projet
+      "@schematics/angular", // celui de base
+      "./tools/schematics"  // le notre
+    ]
+  },
+ ```
+
 ## Angular
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.

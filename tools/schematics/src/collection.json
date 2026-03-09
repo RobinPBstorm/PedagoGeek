@@ -1,0 +1,11 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "my-feature": {
+      "aliases": ["mf"],
+      "description": "A Custom component.",
+      "factory": "../dist/my-feature/index#myFeature",
+      "schema": "./my-feature/schema.json"
+    }
+  }
+}
