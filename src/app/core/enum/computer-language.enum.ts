@@ -1,3 +1,3 @@
 export enum ComputerLanguageEnum {
-  "pseudocode" = 0,
+  pseudocode = "pseudocode",
 }

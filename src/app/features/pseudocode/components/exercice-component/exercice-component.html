@@ -1,17 +1,23 @@
 <article>
   <div class="command">
     <button (click)="run()">Play</button>
+    <mat-slider min="0.25" max="2" step="0.25">
+      <input matSliderThumb [(ngModel)]="readSpeed">
+    </mat-slider>
   </div>
   <div class="main">
-    <pg-textarea class="main__text_area main__text_area-use_code"
-                 [content]="userCode"
-                 [width]="70">
-    </pg-textarea>
-
-    <pg-textarea class="main__text_area main__text_area-variable_output"
-                 [content]="variableOutput"
-                 [handlePosition]="'left'"
-                 [width]="20">
-    </pg-textarea>
+    @if(editMode) {
+      <textarea class="main__text_area main__text_area-use_code" [(ngModel)]="userCode"></textarea>
+    } @else {
+      <div class="div__user_code">
+        @for ($line of userCode.split("\n"); track $index) {
+          <p [class.highlight]="$index === indexLine">{{$line}}</p>
+        }
+      </div>
+    }
+    <div class="main__output">
+      <textarea class="text_area_output text_area_output-variable_output" [(ngModel)]="variableOutput"></textarea>
+      <textarea class="text_area_output text_area_output-console" [(ngModel)]="userConsole"></textarea>
+    </div>
   </div>
 </article>
